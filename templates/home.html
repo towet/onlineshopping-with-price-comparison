@@ -1,0 +1,187 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>product comparison hub</title>
+  <link rel="stylesheet" href="static/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Link to your styles.css file -->
+</head>
+<body>
+  <style>
+    .btn-danger {
+  background-color: #dc3545; /* Red color for the background */
+  color: white; /* White text color */
+  border: none; /* Remove the default border */
+  padding: 10px 20px; /* Padding for the button */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Transition effect for hover */
+}
+
+.btn-danger:hover {
+  background-color: #c82333; /* Darker red color on hover */
+}
+    .card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.hidden {
+  display: none;
+}
+
+.card-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.card {
+  flex: 1 0 30%;
+  margin: 10px;
+}
+  </style>
+  
+  <section class="home">
+    <div class="description">
+      <h1 class="title">
+        <span class="gradient-text">BargainBuddy</span> with cost comparison
+      </h1>
+      <p class="paragraph">
+        Discover unbeatable prices at your fingertips! Our e-commerce hub isn't just a marketplace – it's your ticket to unmatched savings. With our cutting-edge price comparison tool, finding the hottest deals has never been easier. Shop smarter, save bigger, and experience the thrill of scoring incredible bargains every time you click. Welcome to a world where shopping just got a whole lot sweeter!"
+      </p>
+      <form id="form" autocomplete="off">
+        <label for="product">Search product:</label>
+        <input type="text" id="product" name="product" required>
+        <button type="submit" class="btn" aria-label="submit">
+          <span>Search</span>
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </button>
+      </form>
+     
+    </div>
+
+    <div class="users-color-container">
+      <span class="item" style="--i: 1"></span>
+      <img
+        class="item"
+        src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/274f29ce-0d3f-4ac2-a2aa-f9b7bd188b2a"
+        style="--i: 2"
+        alt="" />
+      <span class="item" style="--i: 3"></span>
+      <img
+        class="item"
+        src="{{url_for('static', filename='/images/lappy.jpg')}}"
+        style="--i: 4"
+        alt="" />
+
+      <img
+        class="item"
+        src="{{url_for('static', filename='/images/groceries.jpg')}}"
+        style="--i: 10"
+        alt="" />
+      <span class="item" style="--i: 11"></span>
+      <img class="item" src="c:\Users\frank.ai\Downloads\lappy.jpg c:\Users\frank.ai\Downloads\shoes.jpg c:\Users\frank.ai\Downloads\groceries.jpg" style="--i: 12" alt="" />
+      <span class="item" style="--i: 5"></span>
+
+      <span class="item" style="--i: 9"></span>
+      <img class="item" src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/86c71a79-2efe-4567-8665-b1e5a1fd9735" style="--i: 8" alt="" />
+      <span class="item" style="--i: 7"></span>
+      <img class="item" src="{{url_for('static', filename='/images/shoes.jpg')}}" style="--i: 6" alt="" />
+    </div>
+  </section>
+
+  <section  class="card-container hidden">
+    <div class="card-row" style="display: flex;">
+      <div class="card" data-tilt>
+        <div class="content">
+          
+            <img src= "{{url_for('static', filename='/images/caref.jpg')}}" >
+          <h1>
+            Wide Selection and Great Prices at Carrefour!</h1>
+          <p>
+            Carrefour offers an incredible selection of high-quality products at competitive prices. From everyday essentials to exciting new discoveries, their diverse range caters to every need
+          </p>
+          <button class="btn btn-danger">
+            <span>Check Price</span>
+            <ion-icon name="pricetag"></ion-icon>
+          </button>
+        </div>
+      </div>
+      <div class="card-row" style="display: flex;">
+        <div class="card" data-tilt>
+          <div class="content">
+            <img src= "{{url_for('static', filename='/images/jumia.jpg')}}" >
+
+            <h1>Your Gateway to Online Shopping Convenience</h1>
+            <p>
+              Jumia makes online shopping in kenya a breeze! Their extensive product catalog boasts
+               a vast array of categories, from fashion and electronics to groceries and homeware
+            </p>
+            <button class="btn btn-danger">
+              <span>Check Price</span>
+              <ion-icon name="pricetag"></ion-icon>
+            </button>
+          </div>
+        </div>
+    
+      <div class="card" data-tilt>
+        <div class="content">
+          <img src= "{{url_for('static', filename='/images/Kilimall.png')}}">
+          <h1>Kilimall: Unveiling Affordable Treasures Online</h1>
+          <p>
+            Kilimall is your go-to platform for discovering a treasure trove of products at budget-friendly prices. Explore a wide range of electronics, fashion items, home essentials, and more, all curated to be easy on your wallet.
+          </p>
+          <button class="btn btn-danger">
+            <span>Check Price</span>
+            <ion-icon name="pricetag"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="static/script.js"></script> 
+  <script>
+ $(document).ready(function() {
+  $('#form').on('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    var product = $('#product').val(); // Get the search query
+
+    // Make an AJAX call to the server to get the product links
+    $.ajax({
+      url: '/search',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ product: product }),
+      success: function(response) {
+        // Update the button links in the card
+        $('.card button.btn-danger').each(function(index, button) {
+          var link = document.createElement('a');
+          link.href = response[Object.keys(response)[index]]; // Use the corresponding link from the response
+          link.textContent = 'Check Price';
+          $(button).empty().append(link); // Clear the button content and append the link
+        });
+
+        // Show the card container
+        $('.card-container').removeClass('hidden');
+
+        // Scroll to the card container
+        var cardContainer = document.querySelector('.card-container');
+        cardContainer.scrollIntoView({ behavior: 'smooth' });
+      },
+      error: function(error) {
+        console.log('Error:', error);
+      }
+    });
+  });
+});
+  </script>
+</body>
+</html>

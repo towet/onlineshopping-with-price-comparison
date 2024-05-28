@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Comparison Hub</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <section class="home">
+    <div class="description">
+      <h1 class="title">
+        <span class="gradient-text">BargainBuddy</span> with cost comparison
+      </h1>
+      <p class="paragraph">
+        Discover unbeatable prices at your fingertips! Our e-commerce hub isn't just a marketplace – it's your ticket to unmatched savings. With our cutting-edge price comparison tool, finding the hottest deals has never been easier. Shop smarter, save bigger, and experience the thrill of scoring incredible bargains every time you click. Welcome to a world where shopping just got a whole lot sweeter!"
+      </p>
+      <form id="form" autocomplete="off">
+        <label for="product">Search product:</label>
+        <input type="text" id="product" name="product" required>
+        <button type="submit" class="btn" aria-label="submit">
+          <span>Search</span>
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </button>
+      </form>
+      <div id="results"></div>
+      <script>
+        const form = document.getElementById('form');
+        form.addEventListener('submit', function(event) {
+          event.preventDefault();
+          const product = document.getElementById('product').value;
+          fetch('/search', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ product })
+          })
+          .then(response => response.json())
+          .then(data => {
+            const results = document.getElementById('results');
+            results.innerHTML = '';
+            for (const shop in data) {
+              const link = data[shop];
+              for (let i = 0; i < 3; i++) { // Create three cards for each link
+                const card = document.createElement('div');
+                card.classList.add('card', 'data-tilt');
+                card.innerHTML = `
+                  <div class="content">
+                    <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/10088b1a-c0aa-42a9-8dff-1a692eb597d6" alt="" />
+                    <h1></h1>
+                    <p>
+                      Whether you are pursuing a career change, entrepreneurship, or
+                      personal development, a mentor offers substantial advice and
+                      support to navigate your unique path.
+                    </p>
+                    <button class="btn btn-grad">
+                      <a href="${link}" target="_blank"><span>Learn More</span></a>
+                      <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </button>
+                  </div>`;
+                results.appendChild(card);
+              }
+              results.appendChild(document.createElement('br'));
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+        });
+      </script>
+    </div>
+    
+
+    <div class="users-color-container">
+      <span class="item" style="--i: 1"></span>
+      <img
+        class="item"
+        src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/274f29ce-0d3f-4ac2-a2aa-f9b7bd188b2a"
+        style="--i: 2"
+        alt="" />
+      <span class="item" style="--i: 3"></span>
+      <img
+        class="item"
+        src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/b8a14493-3d9f-4b9b-b93a-56d0bc7243e9"
+        style="--i: 4"
+        alt="" />
+
+      <img
+        class="item"
+        src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/03e51e1e-9750-45a5-b75e-a1e341d4562a"
+        style="--i: 10"
+        alt="" />
+      <span class="item" style="--i: 11"></span>
+      <img class="item" src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/5eb50f89-3e5a-480e-860c-8d40d3ba9ffe" style="--i: 12" alt="" />
+      <span class="item" style="--i: 5"></span>
+
+      <span class="item" style="--i: 9"></span>
+      <img class="item" src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/86c71a79-2efe-4567-8665-b1e5a1fd9735" style="--i: 8" alt="" />
+      <span class="item" style="--i: 7"></span>
+      <img class="item" src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/97ef9643-5202-41aa-80f0-ceeabccdd099" style="--i: 6" alt="" />
+    </div>
+  </section>
+
+  <section class="card-container" id="card-container">
+    <div class="slider">
+      <!-- No need to include the initial card here -->
+    </div>
+
+    <ul class="control" id="custom-control">
+      <li class="prev">
+        <ion-icon class="arrow" name="caret-back-outline"></ion-icon>
+      </li>
+      <li class="next">
+        <ion-icon class="arrow" name="caret-forward-outline"></ion-icon>
+      </li>
+    </ul>
+  </section>
+
+  <script src="static/script.js"></script>
+</body>
+</html>
